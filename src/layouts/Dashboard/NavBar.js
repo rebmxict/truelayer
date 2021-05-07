@@ -1,5 +1,5 @@
 /* eslint-disable react/no-multi-comp */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
@@ -11,6 +11,10 @@ import {
   Hidden,
 } from '@material-ui/core';
 import NavItem from 'src/components/NavItem';
+import { useSelector, useDispatch } from 'react-redux';
+import { initResult } from 'src/actions/resourceActions';
+import axios from 'axios';
+import { server_url } from 'src/current-env';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -96,40 +100,45 @@ function NavBar({
 }) {
   const classes = useStyles();
   const location = useLocation();
-  const navMenu = [{
-    items: [
-      {
-        title: 'Files group 1',
-        href: '/dashboard',
-        items: [
-          {
-            title: 'File1',
-            href: '/file1',
-          },
-          {
-            title: 'File2',
-            href: '/file2',
-            items: [
-              {
-                title: 'File21',
-                href: '/file21',
-              },
-            ]
-          }
-        ]
-      },
-      {
-        title: 'Files 2021.01.10',
-        href: '/2021',
-        items: [
-          {
-            title: 'File91',
-            href: 'file91',
-          },
-        ]
-      },
-    ]
-  }];
+  const dispatch = useDispatch();
+
+  const [navMenu, setNavMenu] = useState([]);
+
+  const accessToken = useSelector((state) => state.resource.accessToken);
+
+  useEffect(() => {
+    if (accessToken) {
+      const data = { accessToken };
+
+      const config = {
+        method: 'post',
+        url: `${server_url}/accounts`,
+        data,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };
+      
+      axios(config)
+      .then(function (response) {
+        const { results } = response.data;
+        dispatch(initResult(results));
+        let items = [];
+        results.forEach(result => {
+          items.push({
+            title: result.display_name,
+            href: `/dashboard/view/${result.account_id}`
+          });
+        });
+        setNavMenu([{ items }]);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
+
+    // eslint-disable-next-line
+  }, [accessToken]);
 
   const content = (
     <div

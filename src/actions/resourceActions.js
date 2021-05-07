@@ -1,6 +1,11 @@
 import * as actionTypes from './actionTypes';
 
 export const initResource = (payload) => (dispatch) => dispatch({
-  type: actionTypes.GET_RESOURCE,
+  type: actionTypes.SET_ACCESS_TOKEN,
+  payload
+});
+
+export const initResult = (payload) => (dispatch) => dispatch({
+  type: actionTypes.SET_RESULT,
   payload
 });

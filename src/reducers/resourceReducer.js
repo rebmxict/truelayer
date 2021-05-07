@@ -1,16 +1,23 @@
 import * as actionTypes from 'src/actions/actionTypes';
 
 const initialState = {
-  data: [],
+  results: [],
 };
 
 const resourceReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.GET_RESOURCE: {
-      const { data } = action.payload;
+    case actionTypes.SET_ACCESS_TOKEN: {
+      const { accessToken } = action.payload;
       return {
         ...state,
-        data,
+        accessToken,
+      };
+    }
+    case actionTypes.SET_RESULT: {
+      const results = action.payload;
+      return {
+        ...state,
+        results,
       };
     }
     default: {

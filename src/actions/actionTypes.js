@@ -1,1 +1,2 @@
-export const GET_RESOURCE = 'GET_RESOURCE';
+export const SET_ACCESS_TOKEN = 'SET_ACCESS_TOKEN';
+export const SET_RESULT = 'SET_RESULT';

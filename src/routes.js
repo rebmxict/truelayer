@@ -13,6 +13,11 @@ const Routes = [
     exact: true,
     component: lazy(() => import('src/components/dashboard'))
   },
+  {
+    path: '/dashboard/view/:id',
+    exact: true,
+    component: lazy(() => import('src/components/dashboard/View'))
+  }
 ];
 
 export default [

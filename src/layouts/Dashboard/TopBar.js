@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core';
 import AccountCircleIconOutlined from '@material-ui/icons/AccountCircleOutlined';
 import MenuIcon from '@material-ui/icons/Menu';
+import { redirect_uri } from 'src/current-env';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,8 +73,6 @@ function TopBar({
           className={classes.userButton}
           color="inherit"
           onClick={() => {
-            // const redirect_uri = 'http://localhost:3000/dashboard';
-            const redirect_uri = 'http://18.139.160.8/dashboard';
             window.location = `https://auth.truelayer.com/?response_type=code&client_id=rioephraim-98895b&scope=info%20accounts%20balance%20cards%20transactions%20direct_debits%20standing_orders%20offline_access&redirect_uri=${redirect_uri}&providers=uk-ob-all%20uk-oauth-all%20uk-cs-mock`
           }}
         >
