@@ -9,3 +9,8 @@ export const initResult = (payload) => (dispatch) => dispatch({
   type: actionTypes.SET_RESULT,
   payload
 });
+
+export const initLoader = (payload) => (dispatch) => dispatch({
+  type: actionTypes.SET_LOADER,
+  payload
+});

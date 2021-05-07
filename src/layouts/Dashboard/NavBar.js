@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import NavItem from 'src/components/NavItem';
 import { useSelector, useDispatch } from 'react-redux';
-import { initResult } from 'src/actions/resourceActions';
+import { initResult, initLoader } from 'src/actions/resourceActions';
 import axios from 'axios';
 import { server_url } from 'src/current-env';
 
@@ -131,6 +131,7 @@ function NavBar({
           });
         });
         setNavMenu([{ items }]);
+        dispatch(initLoader(false));
       })
       .catch(function (error) {
         console.log(error);
